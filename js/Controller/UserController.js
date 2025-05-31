@@ -1,20 +1,37 @@
-const User = require("./js/Model/User");
-const UserRepository = require("./js/Repository/UserRepository");
+const UserRepository = require('../Repository/UserRepository');
+const Admin = require('../Model/Admin');
+const Customer = require('../Model/Customer');
+const EventHost = require('../Model/EventHost');
 
 const repo = new UserRepository();
 
-function createUser(id, name, role) {
-  const user = new User(id, name, role);
-  repo.addUser(user);
-  console.log(`User created: ${user.name} (ID: ${user.id}, Role: ${user.role})`);
-}
+const UserController = {
+  createUser(type, id, name) {
+    let user;
+    switch(type) {
+      case 'Admin':
+        user = new Admin(id, name);
+        break;
+      case 'Customer':
+        user = new Customer(id, name);
+        break;
+      case 'EventHost':
+        user = new EventHost(id, name);
+        break;
+      default:
+        throw new Error('Invalid user type');
+    }
+    repo.addUser(user);
+    return user;
+  },
 
-function listUsers() {
-  const users = repo.getAllUsers();
-  console.log("All users:");
-  users.forEach((user, i) =>
-    console.log(`${i + 1}. ID: ${user.id}, Name: ${user.name}, Role: ${user.role}`)
-  );
-}
+  getUser(id) {
+    return repo.getUserById(id);
+  },
 
-module.exports = { createUser, listUsers };
+  getAllUsers() {
+    return repo.getAllUsers();
+  }
+};
+
+module.exports = UserController;

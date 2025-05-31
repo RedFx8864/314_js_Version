@@ -1,24 +1,107 @@
-<!DOCTYPE html> 
-<html lang="en"> 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Event Management</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 20px auto; }
+    input, button { margin: 5px 0; }
+  </style>
+</head>
+<body>
+  <h1>Event Management</h1>
 
-    <head> <meta charset="UTF-8" /> 
-        <title>Event Manager</title> 
-        <link rel="stylesheet" href="style.css" />
-     </head> 
-     
-     <body> 
+  <h2>Create User</h2>
+  <select id="userType">
+    <option value="Admin">Admin</option>
+    <option value="EventHost">Event Host</option>
+    <option value="Customer">Customer</option>
+  </select><br>
+  <input id="userId" type="number" placeholder="ID" /><br>
+  <input id="userName" placeholder="Name" /><br>
+  <button onclick="createUser(userType, userId, userName)">Create User</button>
 
-        <h1>Event Management Platform</h1>
-        
-            <script src="js/model/User.js"></script> 
-            <script src="js/model/Event.js"></script> 
-            <script src="js/model/Booking.js"></script> 
-            <script src="js/repository/EventRepository.js"></script> 
-            <script src="js/repository/BookingRepository.js"></script> 
-            <script src="js/controller/EventController.js"></script> 
-            <script src="js/controller/BookingController.js"></script> 
-            <script src="js/main.js"></script> 
-            
-    </body> 
-        
+  <h2>Create Event</h2>
+  <input id="eventId" type="number" placeholder="Event ID" /><br>
+  <input id="eventName" placeholder="Event Name" /><br>
+  <input id="hostId" type="number" placeholder="Host User ID" /><br>
+  <button onclick="createEvent()">Create Event</button>
+
+  <h2>Create Booking</h2>
+  <input id="bookingId" type="number" placeholder="Booking ID" /><br>
+  <input id="bookingEventId" type="number" placeholder="Event ID" /><br>
+  <input id="bookingCustomerId" type="number" placeholder="Customer User ID" /><br>
+  <button onclick="createBooking(bookingId, BookingEventId, bookingCustomerId)">Create Booking</button>
+
+  <h2>Data</h2>
+  <button onclick="fetchData()">Refresh Data</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    async function createUser() {
+      const type = document.getElementById('userType').value;
+      const id = Number(document.getElementById('userId').value);
+      const name = document.getElementById('userName').value;
+
+      const response = await fetch(`/api/users/${type}`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, name })
+      });
+      const data = await response.json();
+      alert(JSON.stringify(data));
+      fetchData();
+    }
+
+    async function createEvent() {
+      const id = Number(document.getElementById('eventId').value);
+      const name = document.getElementById('eventName').value;
+      const hostId = Number(document.getElementById('hostId').value);
+
+      const response = await fetch('/api/events', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, name, hostId })
+      });
+      const data = await response.json();
+      alert(JSON.stringify(data));
+      fetchData();
+    }
+
+    async function createBooking() {
+      const id = Number(document.getElementById('bookingId').value);
+      const eventId = Number(document.getElementById('bookingEventId').value);
+      const customerId = Number(document.getElementById('bookingCustomerId').value);
+
+      const response = await fetch('/api/bookings', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ id, eventId, customerId })
+      });
+      const data = await response.json();
+      alert(JSON.stringify(data));
+      fetchData();
+    }
+
+    async function fetchData() {
+      const users = await fetch('/api/users').then(res => res.json());
+      const events = await fetch('/api/events').then(res => res.json());
+      const bookings = await fetch('/api/bookings').then(res => res.json());
+
+      const output = `
+Users:
+${JSON.stringify(users, null, 2)}
+
+Events:
+${JSON.stringify(events, null, 2)}
+
+Bookings:
+${JSON.stringify(bookings, null, 2)}
+      `;
+      document.getElementById('output').textContent = output;
+    }
+
+    fetchData();
+  </script>
+</body>
 </html>

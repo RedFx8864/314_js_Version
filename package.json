@@ -16,5 +16,8 @@
     "url": "https://github.com/RedFx8864/314_js_Version/issues"
   },
   "homepage": "https://github.com/RedFx8864/314_js_Version#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
 }

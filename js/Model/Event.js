@@ -1,10 +1,11 @@
 class Event 
 {
-    constructor(id, title, date, hostId)
-    {
-        this.id = id;
-        this.title = title;
-        this.date = date;
-        this.hostId = id;
-    }
+  constructor(id, name, hostId) 
+  {
+    this.id = id;
+    this.name = name;
+    this.hostId = hostId; // links to EventHost.id
+  }
 }
+
+module.exports = Event;

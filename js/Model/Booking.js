@@ -1,10 +1,11 @@
-class Booking
+class Booking 
 {
-    constructor(id, eventId, customerId, bookingDate = newDate())
-    {
-        this.id = id;
-        this.eventId = eventId;
-        this.customerId = customerId;
-        this.bookingDate = bookingDate;
-    }
+  constructor(id, eventId, customerId) 
+  {
+    this.id = id;
+    this.eventId = eventId;
+    this.customerId = customerId;
+  }
 }
+
+module.exports = Booking;

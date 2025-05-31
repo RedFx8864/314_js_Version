@@ -1,7 +1,83 @@
-const {createUser, listUsers} = require('./js/Controller/UserController');
+const express = require('express');
+const path = require('path');
 
-console.log("Welcome to the Event Management Platform!");
+const UserController = require('./js/Controller/UserController');
+const EventController = require('./js/Controller/EventController');
+const BookingController = require('./js/Controller/BookingController');
 
-// Example usage:
-UserController.createUser(1, 'Alice', 'Customer');
-UserController.createUser(2, 'Bob', 'EventHost');
+const app = express();
+const PORT = 3000;
+
+app.use(express.json()); // parse JSON bodies
+
+// Serve static frontend page
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// API routes
+app.post('/api/users/admin', (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const admin = UserController.createAdmin(id, name);
+    res.json(admin);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.post('/api/users/eventhost', (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const host = UserController.createEventHost(id, name);
+    res.json(host);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.post('/api/users/customer', (req, res) => {
+  const { id, name } = req.body;
+  try {
+    const customer = UserController.createCustomer(id, name);
+    res.json(customer);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.post('/api/events', (req, res) => {
+  const { id, name, hostId } = req.body;
+  try {
+    const event = EventController.createEvent(id, name, hostId);
+    res.json(event);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.post('/api/bookings', (req, res) => {
+  const { id, eventId, customerId } = req.body;
+  try {
+    const booking = BookingController.createBooking(id, eventId, customerId);
+    res.json(booking);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+});
+
+app.get('/api/users', (req, res) => {
+  res.json(UserController.getAllUsers());
+});
+
+app.get('/api/events', (req, res) => {
+  res.json(EventController.getAllEvents());
+});
+
+app.get('/api/bookings', (req, res) => {
+  res.json(BookingController.getAllBookings());
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});

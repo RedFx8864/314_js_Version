@@ -1,17 +1,39 @@
-class EventRepository
-{
-    static getAll()
-    {
-        const data = localStorage.getItem('events');
-        return data ? JSON.parse(data) : [];
+const fs = require('fs');
+const path = require('path');
+const Event = require('../Model/Event');
+
+const DATA_FILE = path.join(__dirname, '../../data/events.json');
+
+class EventRepository {
+  constructor() {
+    this.events = [];
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    if (fs.existsSync(DATA_FILE)) {
+      const raw = fs.readFileSync(DATA_FILE);
+      const data = JSON.parse(raw);
+      this.events = data.map(e => new Event(e.id, e.name, e.hostId));
     }
+  }
 
-    static save(event)
-    {
-        const events = EventRepository.getAll();
+  saveEvents() {
+    fs.writeFileSync(DATA_FILE, JSON.stringify(this.events, null, 2));
+  }
 
-        events.push(event);
+  addEvent(event) {
+    this.events.push(event);
+    this.saveEvents();
+  }
 
-        localStorage.setItem('events', JSON.stringify(events));
-    }
+  getEventById(id) {
+    return this.events.find(e => e.id === id);
+  }
+
+  getAllEvents() {
+    return this.events;
+  }
 }
+
+module.exports = EventRepository;
