@@ -1,0 +1,20 @@
+{
+  "name": "314_js_version",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RedFx8864/314_js_Version.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RedFx8864/314_js_Version/issues"
+  },
+  "homepage": "https://github.com/RedFx8864/314_js_Version#readme",
+  "description": ""
+}
