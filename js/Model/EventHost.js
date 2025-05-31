@@ -1,12 +1,11 @@
-const User = require('./User');
-
-class EventHost extends User 
+class EventHost 
 {
-  constructor(id, name) 
-  {
-    super(id, name);
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
     this.role = 'EventHost';
   }
+
 }
 
 module.exports = EventHost;

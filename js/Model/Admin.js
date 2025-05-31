@@ -1,12 +1,11 @@
-const User = require('./User');
-
-class Admin extends User 
+class Admin 
 {
-  constructor(id, name) 
-  {
-    super(id, name);
+  constructor(id, name) {
+    this.id = id;
+    this.name = name;
     this.role = 'Admin';
   }
+
 }
 
 module.exports = Admin;

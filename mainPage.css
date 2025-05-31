@@ -1,0 +1,19 @@
+.round_button
+{
+    size-adjust: 20%;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    font-size: 200px;
+    text-align: center;
+    line-height: 250px;
+    user-select: none;
+
+    display: block;
+    margin: 40px auto;
+    
+}

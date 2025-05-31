@@ -1,12 +1,12 @@
-const User = require('./User');
-
-class Customer extends User 
+class Customer 
 {
   constructor(id, name) 
   {
-    super(id, name);
+    this.id = id;
+    this.name = name;
     this.role = 'Customer';
   }
 }
+
 
 module.exports = Customer;

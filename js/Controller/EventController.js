@@ -1,7 +1,7 @@
 const EventRepository = require('../Repository/EventRepository');
 const Event = require('../Model/Event');
 
-const repo = new EventRepository();
+const repo = new EventRepository;
 
 const EventController = {
   createEvent(id, name, hostId) {
