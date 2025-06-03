@@ -1,0 +1,151 @@
+head
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.toplink .active
+{
+  text-decoration: underline;
+}
+
+
+
+.container 
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+  .centered {
+    background-color: lightgreen;
+    padding: 20px;
+  }
+
+ .grid-container {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+  }
+
+  .grid-item {
+    padding: 10px 20px;
+    font-size: 50px;
+  }
+
+  .login
+  {
+    background-color: blue;
+    padding: 10px 100px;
+    font-size: 50px;
+    color: aliceblue;
+    cursor: pointer;
+  
+
+  }
+
+  .login:hover
+  {
+    padding: 20px 100px;
+
+    color: chocolate;
+
+  }
+
+  .create
+  {
+    background-color: blue;
+    padding: 10px 60px;
+    font-size: 50px;
+    color: aliceblue;
+    float: right;
+    cursor: pointer;
+  
+    
+  }
+
+  .create:hover
+  {
+    padding: 20px 60px;
+    color: chocolate;
+
+  }
+
+
+
+body
+{
+    margin: 0;
+    font-family: Arial, sans-serif;
+
+    font-size: 20px;
+    color: aliceblue;
+    height: 650vh;
+    background: linear-gradient(to bottom, #2c2c2c, blue);
+}
+
+.toplink
+{
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+
+
+.topbar
+{
+
+    background-color: blue;
+    color: white;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+
+}
+
+.topbar .logo
+{
+
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.topbar .logo:hover
+{
+
+    color: chocolate;
+    font-weight: bold;
+}
+
+.topbar nav
+{
+  margin-right: 50px;
+  margin-left: auto;
+}
+
+.topbar nav a
+{
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+    transition: color 0.3s;
+    margin-right: 20px;
+}
+
+.topbar nav a:hover
+{
+    color: chocolate;
+}
+
+.content
+{
+    padding: 80px 20px;
+}
