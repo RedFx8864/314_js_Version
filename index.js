@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
 
-const UserController = require('/js/Controller/UserController');
-const EventController = require('/js/Controller/EventController');
-const BookingController = require('/js/Controller/BookingController');
+const UserController = require('./js/Controller/UserController');
+const EventController = require('./js/Controller/EventController');
+const BookingController = require('./js/Controller/BookingController');
 
 const app = express();
 const PORT = 3000;
@@ -47,17 +47,6 @@ app.post('/api/users/admin', (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
-
-try
-{
-    const newUser = UserController.createUser('Admin','Admin001', 'Alice');
-    console.log('User Created: ', newUser);
-
-}catch(err)
-{
-    console.error('Error creating user: ', err.message)
-}
 
 app.post('/api/users/eventhost', (req, res) => {
   const { id, name } = req.body;
