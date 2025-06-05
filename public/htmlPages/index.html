@@ -15,16 +15,18 @@
             <div class="grid-container">
 
                 
-                <form id="login" action="/Home" method="POST">
+                <form id="login" action="/create-user" method="POST">
                     <h2>Login</h2>
-                    <input class="grid-item" type="text" id="email" placeholder="Email" required/><br><br>
-                    <input class="grid-item" type="password" id="password" placeholder="Password" required/><br><br>
-                    <select id="role" class="grid-item"> 
+                    <input class="grid-item" type="text" name="id" id="id" placeholder="ID" required/><br><br>
+                    <input class="grid-item" type="text" name="name" id="name" placeholder="Name" required/><br><br>
+                    <input class="grid-item" type="email" name="email" id="email" placeholder="Email" required/><br><br>
+                    <input class="grid-item" type="password" name="password" id="password" placeholder="Password" required/><br><br>
+                    <select id="role" name="role" class="grid-item"> 
                         <option value="Admin">Admin</option>
                         <option value="Customer">Customer</option>
                         <option value="EventHost">EvenHost</option>
                     </select><br><br>
-                    <button  class="login" onclick="window.location.href='/Home'" >Login</button>
+                    <button  class="login">Login</button>
                     <button  id="createButton" class="create">Create</button><br>
                     <pre id="result"></pre>
 

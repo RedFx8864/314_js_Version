@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "id": "12",
+    "name": "redf",
+    "role": "Admin",
+    "email": "tfwgqukjbn@gmail.com",
+    "password": "Pasj12"
+  },
+  {
+    "id": "12",
+    "name": "redf",
+    "role": "Customer",
+    "email": "tfwgqukjbn@gmail.com",
+    "password": "Pasj12"
+  },
+  {
+    "id": "12",
+    "name": "redf",
+    "role": "Customer",
+    "email": "tfwgqukjbn@gmail.com",
+    "password": "Pasj12"
+  }
+]

@@ -1,37 +1,19 @@
+const User = require('../Model/User');
 const UserRepository = require('../Repository/UserRepository');
-const Admin = require('../Model/Admin');
-const Customer = require('../Model/Customer');
-const EventHost = require('../Model/EventHost');
 
-const repo = new UserRepository();
+class UserController {
+    static createUser(req, res) {
+        const { id, name, role, email, password } = req.body;
 
-const UserController = {
-  createUser(type, email, password) {
-    let user;
-    switch(type) {
-      case 'Admin':
-        user = new Admin(email, password);
-        break;
-      case 'Customer':
-        user = new Customer(email, password);
-        break;
-      case 'EventHost':
-        user = new EventHost(email, password);
-        break;
-      default:
-        throw new Error('Invalid user type');
+        if (!email || !password || !id || !name || !role) {
+            return res.status(400).send('Missing user fields');
+        }
+
+        const newUser = new User(id, name, role, email, password);
+        UserRepository.saveUser(newUser);
+
+        res.redirect('/Home')
     }
-    repo.addUser(user);
-    return user;
-  },
-
-  getUser(id) {
-    return repo.getUserById(id);
-  },
-
-  getAllUsers() {
-    return repo.getAllUsers();
-  }
-};
+}
 
 module.exports = UserController;

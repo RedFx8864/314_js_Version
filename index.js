@@ -1,5 +1,7 @@
 const express = require('express');
+const bodyParser = require('body-parser')
 const path = require('path');
+
 
 const UserController = require('./js/Controller/UserController');
 const EventController = require('./js/Controller/EventController');
@@ -7,7 +9,7 @@ const BookingController = require('./js/Controller/BookingController');
 
 const app = express();
 const PORT = 3000;
-
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json()); // parse JSON bodies
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -15,6 +17,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/htmlPages/index.html'));
 });
+
+
 
 app.get('/Home', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/htmlPages/Home.html'));
@@ -38,15 +42,7 @@ app.get('/Contact', (req, res) => {
 });
 
 // API routes
-app.post('/api/users/admin', (req, res) => {
-  const { id, name } = req.body;
-  try {
-    const admin = UserController.createAdmin(id, name);
-    res.json(admin);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
-  }
-});
+app.post('/create-user', UserController.createUser);
 
 app.post('/api/users/eventhost', (req, res) => {
   const { id, name } = req.body;
