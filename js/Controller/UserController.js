@@ -6,17 +6,17 @@ const EventHost = require('../Model/EventHost');
 const repo = new UserRepository();
 
 const UserController = {
-  createUser(type, id, name) {
+  createUser(type, email, password) {
     let user;
     switch(type) {
       case 'Admin':
-        user = new Admin(id, name);
+        user = new Admin(email, password);
         break;
       case 'Customer':
-        user = new Customer(id, name);
+        user = new Customer(email, password);
         break;
       case 'EventHost':
-        user = new EventHost(id, name);
+        user = new EventHost(email, password);
         break;
       default:
         throw new Error('Invalid user type');

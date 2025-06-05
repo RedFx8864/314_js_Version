@@ -28,18 +28,18 @@ class UserRepository {
     return usersRaw.map(u => this._instantiateUser(u));
   }
 
-  createUser(id, name, role) {
+  createUser(email, password, role) {
     const users = this.getAllUsers();
     let newUser;
     switch(role) {
       case 'Admin':
-        newUser = new Admin(id, name);
+        newUser = new Admin(email, password);
         break;
       case 'Customer':
-        newUser = new Customer(id, name);
+        newUser = new Customer(email, password);
         break;
       case 'EventHost':
-        newUser = new EventHost(id, name);
+        newUser = new EventHost(email, password);
         break;
       default:
         throw new Error('Invalid role');

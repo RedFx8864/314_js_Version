@@ -118,6 +118,12 @@ body
     font-weight: bold;
 }
 
+.drop
+{
+  padding: 5px 10px;
+  font-size: 50px;
+}
+
 .topbar .logo:hover
 {
 

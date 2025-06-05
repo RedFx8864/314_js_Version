@@ -4,7 +4,7 @@ class Event
   {
     this.id = id;
     this.name = name;
-    this.hostId = hostId; // links to EventHost.id
+    this.hostId = hostId;
   }
 }
 
