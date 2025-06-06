@@ -84,15 +84,7 @@ app.post("/submit", (req, res) =>
 
 });
 
-app.post("/api/events", (req, res)=>
-{
-  const {name, description, hostId, dates } = req.body;
-  const id = Date.now();
-
-  const newEvent = new Event(id, name, description, hostId, dates);
-  EventRepository.saveEvent(newEvent);
-  res.status(201).json({ message: "Event Created", event: newEvent});
-});
+app.post("/api/events", EventController.create);
 
 app.get("/api/events", (req, res)=>
 {
@@ -100,9 +92,7 @@ app.get("/api/events", (req, res)=>
   res.json(events)
 });
 
-app.post("/api/events", (req, res) => {
-  EventController.create(req, res);
-});
+
 
 app.get("/api/events", (req, res) => {
   EventController.getAll(req, res);

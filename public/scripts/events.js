@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetch('/api/events')
     .then(res => res.json())
     .then(events => {
-      const list = document.getElementById('eventList');
+      const list = document.getElementById('eventsList');
       list.innerHTML = events.map(ev => `
         <div>
           <h3>${ev.name}</h3>
