@@ -105,9 +105,9 @@ app.post("/submit", (req, res) =>
 });
 
 
-// ✅ CORRECT:
-app.post('/api/bookings', BookingController.createBooking);
 
+app.post('/api/bookings', BookingController.createBooking);
+app.get('/api/bookings', BookingController.getBookingsByUserId);
 
 
 

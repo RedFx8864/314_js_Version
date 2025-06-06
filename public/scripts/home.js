@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
           fetch("/api/events", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, description, dates, hostId: user.id })
+            body: JSON.stringify({ name, description, dates, hostId: user.id, hostName: user.name })
           })
             .then(res => res.json())
             .then(data => {

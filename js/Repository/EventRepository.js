@@ -1,20 +1,19 @@
 const fs = require('fs');
 const path = require('path');
+const filePath = path.join(__dirname, '/../../data/Events.json');
 
-const EVENTS_FILE = path.join(__dirname, '../../data/Events.json');
+const EventRepository = {
+  getAllEvents: () => {
+    if (!fs.existsSync(filePath)) return [];
+    const data = fs.readFileSync(filePath);
+    return JSON.parse(data || '[]');
+  },
 
-class EventRepository {
-  getAllEvents() {
-    if (!fs.existsSync(EVENTS_FILE)) return [];
-    const data = fs.readFileSync(EVENTS_FILE);
-    return JSON.parse(data);
-  }
-
-  saveEvent(event) {
-    const events = this.getAllEvents();
+  saveEvent: (event) => {
+    const events = EventRepository.getAllEvents();
     events.push(event);
-    fs.writeFileSync(EVENTS_FILE, JSON.stringify(events, null, 2));
+    fs.writeFileSync(filePath, JSON.stringify(events, null, 2));
   }
-}
+};
 
-module.exports = new EventRepository();
+module.exports = EventRepository;

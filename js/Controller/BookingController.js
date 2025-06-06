@@ -13,6 +13,23 @@ class BookingController {
     BookingRepository.saveBooking(booking);
     res.status(201).json(booking);
   }
+
+  getBookingsByUserId(req, res) {
+  const { userId } = req.query;
+
+  if (!userId) {
+    return res.status(400).json({ error: "Missing userId" });
+  }
+
+  const allBookings = BookingRepository.getAllBookings();
+  const userBookings = allBookings.filter(b => String(b.customerId) === String(userId));
+
+  res.json(userBookings);
+}
+
+  
+
+  
 }
 
 module.exports = new BookingController();
