@@ -13,11 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const section = document.getElementById("eventHostSection");
 
         section.innerHTML = `
-          <h2>Create Event</h2>
-          <form id="createEventForm">
-            <label>Name: <input type="text" name="name" required></label><br>
-            <label>Description: <input type="text" name="description" required></label><br>
-            <label>Dates: <input type="text" name="dates" required></label><br>
+          <h2 class="content">Create Event</h2>
+          <form class="content" id="createEventForm">
+            <input placeholder="Name" type="text" name="name" required><br>
+            <input placeholder="Description" type="text" name="description" required><br>
+            <input placeholder="Date" type="text" name="dates" required><br>
             <button type="submit">Create</button>
           </form>
         `;
