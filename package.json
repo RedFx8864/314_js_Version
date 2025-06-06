@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon index.js"
+    "devStart": "nodemon index.js",
+    "devTest" : "node test/userTest.js"
   },
   "repository": {
     "type": "git",
