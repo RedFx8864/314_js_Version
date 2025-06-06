@@ -19,5 +19,19 @@
     "role": "EventHost",
     "email": "events@gmail.com",
     "password": "123e"
+  },
+  {
+    "id": 1749189394761,
+    "name": "eventDude",
+    "role": "EventHost",
+    "email": "wow@gmail.com",
+    "password": "123e"
+  },
+  {
+    "id": 1749189418294,
+    "name": "eventDude",
+    "role": "EventHost",
+    "email": "how@gmail.com",
+    "password": "123e"
   }
 ]

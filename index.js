@@ -7,6 +7,9 @@ const EventController = require('./js/Controller/EventController');
 
 
 const UserRepository = require('./js/Repository/UserRepository');
+const EventRepository = require('./js/Repository/EventRepository');
+
+
 
 
 const app = express();
@@ -40,7 +43,12 @@ app.get("/users/:id/Events", (req, res)=>
   res.sendFile(path.join(__dirname, "public", "htmlPages", "Events.html"))
 })
 
-app.get('/api/Users/:id', (req, res) => {
+app.get("/users/:id/Bookings", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Bookings.html"))
+})
+
+app.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
   const users = UserRepository.getAllUsers();
   const user = users.find(u => u.id.toString() === id);

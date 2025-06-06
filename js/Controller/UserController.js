@@ -19,8 +19,6 @@ class UserController
     const id = Date.now();
     const user = new User(id, name || "User", role || "User", email, password);
     UserRepository.saveUser(user);
-
-    res.status(201).send("User Registered Susessfuly");
     res.redirect(`/users/${user.id}/Home`)
    }
 

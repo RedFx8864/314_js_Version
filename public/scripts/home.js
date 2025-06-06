@@ -1,21 +1,25 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const userId = window.location.pathname.split('/')[2];
-  document.getElementById('hostId').value = userId;
+  // Extract user ID from URL path
+  const pathParts = window.location.pathname.split('/');
+  const userId = pathParts[2];  // e.g. /users/123/Home => '123'
 
-  document.getElementById('eventForm').addEventListener('submit', async (e) => {
-    e.preventDefault();
+  console.log("Parsed userId:", userId);
 
-    const formData = new FormData(e.target);
-    const payload = Object.fromEntries(formData.entries());
+  fetch(`/api/users/${userId}`)
+    .then(res => {
+      console.log("API response status:", res.status);
+      return res.json();
+    })
+    .then(user => {
+      console.log("Fetched user:", user);
 
-    const res = await fetch('/api/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    const data = await res.json();
-    alert(data.message);
-    e.target.reset();
-  });
+      if (user && user.name) {
+        document.getElementById("userName").textContent = `Welcome, ${user.name}!`;
+        document.getElementById("email").textContent = `Email: ${user.email}`;
+        document.getElementById("role").textContent = `Role: ${user.role}`;
+      } else {
+        console.error("User data invalid or missing");
+      }
+    })
+    .catch(err => console.error("Error fetching user data:", err));
 });

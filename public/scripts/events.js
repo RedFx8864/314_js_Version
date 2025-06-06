@@ -11,5 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <hr>
         </div>`).join('');
     })
+    
     .catch(err => console.error("Error fetching events:", err));
 });
