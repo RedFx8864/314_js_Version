@@ -123,6 +123,21 @@ app.get("/api/events", (req, res)=>
   res.json(events)
 });
 
+app.get("/api/users", (req, res)=>
+{
+  try
+  {
+    const users = UserRepository.getAllUsers();
+    res.json(users);
+  }
+
+  catch
+  {
+    console.error("error loading users", err);
+    res.status(500).json({error: "failed to load users"});
+  }
+})
+
 
 
 app.listen(PORT, () => {
