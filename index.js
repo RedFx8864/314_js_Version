@@ -1,101 +1,108 @@
 const express = require('express');
-const bodyParser = require('body-parser')
 const path = require('path');
-
+const bodyParser = require('body-parser');
 
 const UserController = require('./js/Controller/UserController');
 const EventController = require('./js/Controller/EventController');
-const BookingController = require('./js/Controller/BookingController');
+
+
+const UserRepository = require('./js/Repository/UserRepository');
+
 
 const app = express();
 const PORT = 3000;
+
+
+app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json()); // parse JSON bodies
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Serve static frontend page
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/index.html'));
-});
 
+app.get("/", (req, res) =>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "index.html"))
 
+})
 
-app.get('/Home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/Home.html'));
-});
+app.get("/users/:id/Users", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Users.html"))
+})
 
+app.get("/users/:id/Home", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Home.html"))
+})
 
-app.get('/Users', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/Users.html'));
-});
+app.get("/users/:id/Events", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Events.html"))
+})
 
-app.get('/Events', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/Events.html'));
-});
+app.get('/api/users/:id', (req, res) => {
+  const id = req.params.id;
+  const users = UserRepository.getAllUsers();
+  const user = users.find(u => u.id.toString() === id);
 
-app.get('/Bookings', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/Bookings.html'));
-});
-
-app.get('/Contact', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/htmlPages/Contact.html'));
-});
-
-// API routes
-app.post('/create-user', UserController.createUser);
-
-app.post('/api/users/eventhost', (req, res) => {
-  const { id, name } = req.body;
-  try {
-    const host = UserController.createEventHost(id, name);
-    res.json(host);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404).json({ error: 'User not found' });
   }
 });
 
-app.post('/api/users/customer', (req, res) => {
-  const { id, name } = req.body;
-  try {
-    const customer = UserController.createCustomer(id, name);
-    res.json(customer);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+
+app.post("/submit", (req, res) =>
+{
+  const action = req.body.action;
+
+  if (action === "login")
+  {
+    UserController.login(req, res)
   }
-});
 
-app.post('/api/events', (req, res) => {
-  const { id, name, hostId } = req.body;
-  try {
-    const event = EventController.createEvent(id, name, hostId);
-    res.json(event);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+
+  else if (action === "register")
+  {
+    UserController.register(req, res);
   }
-});
 
-app.post('/api/bookings', (req, res) => {
-  const { id, eventId, customerId } = req.body;
-  try {
-    const booking = BookingController.createBooking(id, eventId, customerId);
-    res.json(booking);
-  } catch (err) {
-    res.status(400).json({ error: err.message });
+
+  else
+  {
+    res.status(400).send("Invalid action")
   }
+
 });
 
-app.get('/api/users', (req, res) => {
-  res.json(UserController.getAllUsers());
+app.post("/api/events", (req, res)=>
+{
+  const {name, description, hostId, dates } = req.body;
+  const id = dates.now();
+
+  const newEvent = new Event(id, name, description, hostId, dates);
+  EventRepository.saveEvent(newEvent);
+  res.status(201).json({ message: "Event Created", event: newEvent});
 });
 
-app.get('/api/events', (req, res) => {
-  res.json(EventController.getAllEvents());
+app.get("/api/events", (req, res)=>
+{
+  const events = EventRepository.getAllEvents();
+  res.json(events)
 });
 
-app.get('/api/bookings', (req, res) => {
-  res.json(BookingController.getAllBookings());
+app.post("/api/events", (req, res) => {
+  EventController.create(req, res);
 });
+
+app.get("/api/events", (req, res) => {
+  EventController.getAll(req, res);
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+

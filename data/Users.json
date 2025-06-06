@@ -1,23 +1,16 @@
 [
   {
-    "id": "12",
-    "name": "redf",
-    "role": "Admin",
-    "email": "tfwgqukjbn@gmail.com",
-    "password": "Pasj12"
+    "id": 1749176493343,
+    "name": "Blue",
+    "role": "Customer",
+    "email": "redflame1980liver@gmail.com",
+    "password": "123"
   },
   {
-    "id": "12",
-    "name": "redf",
+    "id": 1749177530241,
+    "name": "red",
     "role": "Customer",
-    "email": "tfwgqukjbn@gmail.com",
-    "password": "Pasj12"
-  },
-  {
-    "id": "12",
-    "name": "redf",
-    "role": "Customer",
-    "email": "tfwgqukjbn@gmail.com",
-    "password": "Pasj12"
+    "email": "flame@gmail.com",
+    "password": "David123"
   }
 ]

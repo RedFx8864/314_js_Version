@@ -12,6 +12,7 @@ class User
 
     createUser(email, password, id)
     {
+        return new User(id, "Default Name", "Customer", email, password )
 
     }
 }

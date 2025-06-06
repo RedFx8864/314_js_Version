@@ -1,25 +1,30 @@
-document.getElementById('login').addEventListener('submit', async (e) => {
-  e.preventDefault();
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("user.js loaded");
 
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('passsword').value;
-  const role = document.getElementById('role').value;
+  const pathParts = window.location.pathname.split('/');
+  const userId = pathParts[2];
+  console.log("Parsed userId:", userId);
 
-  try {
-    const response = await fetch(`/api/users/${role}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
+  fetch(`/api/users/${userId}`)
+    .then(response => {
+      console.log("API response status:", response.status);
+      return response.json();
+    })
+    .then(user => {
+      console.log("Fetched user:", user);
+
+      if (user && user.name) {
+        const userNameElement = document.getElementById("userName");
+        if (userNameElement) {
+          userNameElement.textContent = `Welcome, ${user.name}!`;
+        } else {
+          console.error("No element with ID 'userName' found.");
+        }
+      } else {
+        console.error("User not found or missing name");
+      }
+    })
+    .catch(err => {
+      console.error("Failed to fetch user data:", err);
     });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      alert(`User created: ${JSON.stringify(result)}`);
-    } else {
-      alert(`Error: ${result.error}`);
-    }
-  } catch (err) {
-    alert('Request failed: ' + err.message);
-  }
 });

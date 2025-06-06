@@ -3,7 +3,7 @@
     <html lang="en">
 
         <head>
-            <link rel="stylesheet" href="../css/mainPage.css">
+            <link rel="stylesheet" href="/../css/mainPage.css">
 
             <script> src="../scripts/user.js"</script>
 
@@ -15,9 +15,8 @@
             <div class="grid-container">
 
                 
-                <form id="login" action="/create-user" method="POST">
+                <form id="login" action="/submit" method="POST">
                     <h2>Login</h2>
-                    <input class="grid-item" type="text" name="id" id="id" placeholder="ID" required/><br><br>
                     <input class="grid-item" type="text" name="name" id="name" placeholder="Name" required/><br><br>
                     <input class="grid-item" type="email" name="email" id="email" placeholder="Email" required/><br><br>
                     <input class="grid-item" type="password" name="password" id="password" placeholder="Password" required/><br><br>
@@ -26,21 +25,15 @@
                         <option value="Customer">Customer</option>
                         <option value="EventHost">EvenHost</option>
                     </select><br><br>
-                    <button  class="login">Login</button>
-                    <button  id="createButton" class="create">Create</button><br>
-                    <pre id="result"></pre>
+                    <button type="submit" class="login" name="action" value="login">Login</button>
+                    <button  type="submit" id="createButton" class="create" name="action" value="register">Create</button><br>
 
-
-                 
+                    <div id="user-output" class="user-text-box"></div>
 
                 </form>
      
-                    
-
             </div>
-
            
-
 
         </body>
 
