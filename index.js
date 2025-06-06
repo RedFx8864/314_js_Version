@@ -116,16 +116,11 @@ app.post("/submit", (req, res) =>
 
 app.post("/api/events", EventController.create);
 
+
 app.get("/api/events", (req, res)=>
 {
   const events = EventRepository.getAllEvents();
   res.json(events)
-});
-
-
-
-app.get("/api/events", (req, res) => {
-  EventController.getAll(req, res);
 });
 
 
