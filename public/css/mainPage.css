@@ -54,6 +54,21 @@ head
 
   }
 
+  .small
+  {
+    background-color: blue;
+    padding: 5px 40px;
+    font-size: 20px;
+    color: aliceblue;
+    cursor: pointer;
+  }
+
+  .small:hover
+  {
+    padding: 7.5px 40px;
+    color: chocolate;
+  }
+
   .create
   {
     background-color: blue;

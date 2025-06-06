@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
           <hr>
           <h3>${ev.name}</h3>
           <p>${ev.description}</p>
-          <p><strong>Date:</strong> ${ev.dates}</p>
+          <p><strong>Date:</strong> ${ev.dates} <button class="small">Book</button></p>
+         
           <hr>
         </div>`).join('');
     })
