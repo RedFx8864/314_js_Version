@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const UserController = require('./js/Controller/UserController');
 const EventController = require('./js/Controller/EventController');
+const BookingController = require('./js/Controller/BookingController');
 
 
 const UserRepository = require('./js/Repository/UserRepository');
@@ -48,6 +49,21 @@ app.get("/users/:id/Bookings", (req, res)=>
   res.sendFile(path.join(__dirname, "public", "htmlPages", "Bookings.html"))
 })
 
+app.get("/users/:id/Contact", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Contact.html"))
+})
+
+app.get("/users/:id/Bookings", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Bookings.html"))
+})
+
+app.get("/users/:id/Contact", (req, res)=>
+{
+  res.sendFile(path.join(__dirname, "public", "htmlPages", "Contact.html"))
+})
+
 app.get('/api/users/:id', (req, res) => {
   const id = req.params.id;
   const users = UserRepository.getAllUsers();
@@ -60,6 +76,20 @@ app.get('/api/users/:id', (req, res) => {
   }
 });
 
+app.post("/createBooking", (req, res) => 
+{
+  const action = req.body.action;
+
+  if (action === "createBooking")
+  {
+    BookingController.newBookingTest(req, res);
+  }
+  else
+  {
+    res.status(400).send("Invalid action");
+  }
+}
+)
 
 app.post("/submit", (req, res) =>
 {
@@ -79,7 +109,7 @@ app.post("/submit", (req, res) =>
 
   else
   {
-    res.status(400).send("Invalid action")
+    res.status(400).send("Invalid action");
   }
 
 });

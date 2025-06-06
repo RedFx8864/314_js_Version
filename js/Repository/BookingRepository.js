@@ -5,35 +5,35 @@ const Booking = require('../Model/Booking');
 const DATA_FILE = path.join(__dirname, '../../data/bookings.json');
 
 class BookingRepository {
-  constructor() {
-    this.bookings = [];
-    this.loadBookings();
-  }
 
-  loadBookings() {
+  constructor()
+      {
+          if (!fs.existsSync(DATA_FILE))
+              {
+                  fs.writeFileSync(DATA_FILE, JSON.stringify([]))
+              }
+      }
+
+  getAllBookings() 
+  {
     if (fs.existsSync(DATA_FILE)) {
-      const raw = fs.readFileSync(DATA_FILE);
-      const data = JSON.parse(raw);
-      this.bookings = data.map(b => new Booking(b.id, b.eventId, b.customerId));
+      const data = fs.readFileSync(DATA_FILE);
+      return JSON.parse(data);
     }
   }
 
-  saveBookings() {
-    fs.writeFileSync(DATA_FILE, JSON.stringify(this.bookings, null, 2));
+  saveBooking(booking) 
+  {
+    const bookings = this.getAllBookings();
+    bookings.push(booking);
+    fs.writeFileSync(DATA_FILE, JSON.stringify(bookings, null, 2));
   }
 
-  addBooking(booking) {
-    this.bookings.push(booking);
-    this.saveBookings();
-  }
-
-  getBookingById(id) {
-    return this.bookings.find(b => b.id === id);
-  }
-
-  getAllBookings() {
-    return this.bookings;
+  getBookingById(id) 
+  {
+    const bookings = JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8'));
+    return bookings.find(booking => booking.id === id);
   }
 }
 
-module.exports = BookingRepository;
+module.exports = new BookingRepository();

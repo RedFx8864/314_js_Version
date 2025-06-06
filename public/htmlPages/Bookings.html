@@ -27,6 +27,12 @@
 
             <div class="content">
                 <p>Bookings</p>
+                <form id="login" action="/createBooking" method="POST">
+                    <h2>Login</h2>
+                    <input class="grid-item" type="text" name="eventId" id="eventId" placeholder="EventId" required/><br><br>
+                    <input class="grid-item" type="text" name="customerId" id="customerId" placeholder="CustomerId" required/><br><br>
+                    <button  type="submit" id="createBookingButton" class="create" name="action" value="createBooking">Create</button><br>
+                </form>
             </div>
 
            
