@@ -40,7 +40,7 @@ app.get("/users/:id/Events", (req, res)=>
   res.sendFile(path.join(__dirname, "public", "htmlPages", "Events.html"))
 })
 
-app.get('/api/users/:id', (req, res) => {
+app.get('/api/Users/:id', (req, res) => {
   const id = req.params.id;
   const users = UserRepository.getAllUsers();
   const user = users.find(u => u.id.toString() === id);
@@ -79,7 +79,7 @@ app.post("/submit", (req, res) =>
 app.post("/api/events", (req, res)=>
 {
   const {name, description, hostId, dates } = req.body;
-  const id = dates.now();
+  const id = Date.now();
 
   const newEvent = new Event(id, name, description, hostId, dates);
   EventRepository.saveEvent(newEvent);

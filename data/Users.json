@@ -12,5 +12,12 @@
     "role": "Customer",
     "email": "flame@gmail.com",
     "password": "David123"
+  },
+  {
+    "id": 1749188590877,
+    "name": "eventDude",
+    "role": "EventHost",
+    "email": "events@gmail.com",
+    "password": "123e"
   }
 ]
