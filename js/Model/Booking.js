@@ -1,17 +1,11 @@
-class Booking 
-{
-  constructor(id, eventId, customerId) 
-  {
+class Booking {
+  constructor(id, eventHostName, eventId, customerId, eventName) {
     this.id = id;
+    this.eventHostName = eventHostName;
     this.eventId = eventId;
     this.customerId = customerId;
+    this.eventName = eventName;
   }
-
-  createBooking(id, eventId, customerId)
-  {
-    return new Booking(id, eventId, customerId);
-  }
-
 }
 
 module.exports = Booking;

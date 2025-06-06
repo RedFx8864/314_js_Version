@@ -15,6 +15,7 @@
                     <a class="toplink" href="Events">Events</a>
                     <a class="toplink" href="Bookings">Bookings</a>
                     <a class="toplink" href="Contact">Contact</a>
+                    <button class="logout" id="logoutBtn">Logout</button>
                 </nav>
 
 
@@ -35,6 +36,13 @@
 
            
             <script src="/scripts/allUsers.js"></script>
+
+            <script>
+                document.getElementById("logoutBtn").addEventListener("click", () => 
+                {
+                    window.location.href = "/";
+                });
+            </script>
 
         </body>
 

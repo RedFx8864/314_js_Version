@@ -15,6 +15,7 @@
                     <a class="toplink" href="Events">Events</a>
                     <a class="toplink" href="Bookings">Bookings</a>
                     <a class="active" href="Contact">Contact</a>
+                    <button class="logout" id="logoutBtn">Logout</button>
                 </nav>
 
             </div>
@@ -31,7 +32,12 @@
 
             <h3 style="margin : 20px;">redflame1980liver@gmail.com</h3>
 
-           
+            <script>
+                document.getElementById("logoutBtn").addEventListener("click", () => 
+                {
+                    window.location.href = "/";
+                });
+            </script>
 
 
         </body>

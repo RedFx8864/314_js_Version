@@ -1,45 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const pathParts = window.location.pathname.split('/');
-  const userId = pathParts[2];
+  const userId = window.location.pathname.split('/')[2];
 
-  const bookingForm = document.getElementById("bookingForm");
-
-  bookingForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const eventId = document.getElementById("eventId").value;
-
-    fetch("/createBooking", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        eventId: eventId,
-        customerId: userId,
-        action: "createBooking"
-      }),
-    })
-    .then(res => res.text())
-    .then(data => {
-      alert(data);
-      location.reload();
-    })
-    .catch(err => console.error("Error creating booking:", err));
-  });
-
-  fetch(`/api/bookings/${userId}`)
+  fetch('/api/events')
     .then(res => res.json())
-    .then(bookings => {
-      const list = document.getElementById('bookingsList');
-      list.innerHTML = bookings.map(bo => `
-        <div>
-          <h3>Booking ID: ${bo.id}</h3>
-          <p>Event ID: ${bo.eventId}</p>
-          <p>Customer ID: ${bo.customerId}</p>
+    .then(events => {
+      const list = document.getElementById('eventsList');
+
+      list.innerHTML = events.map(ev => `
+        <div class="content">
           <hr>
-        </div>
-      `).join('');
+          <h3>${ev.name}</h3>
+          <p>${ev.description}</p>
+          <p><strong>Date:</strong> ${ev.dates}</p>
+
+          <form class="booking-form">
+            <input type="hidden" name="eventId" value="${ev.id}">
+            <input type="hidden" name="eventName" value="${ev.name}">
+            <input type="hidden" name="eventHostName" value="${ev.hostName || 'Unknown'}">
+            <input type="hidden" name="customerId" value="${userId}">
+            <button type="submit" class="small">Book</button>
+          </form>
+          <hr>
+        </div>`).join('');
     })
-    .catch(err => console.error("Error fetching bookings:", err));
+    .catch(err => console.error("Error fetching events:", err));
+
+  // Unified form handler
+  document.addEventListener('submit', function (e) {
+    if (e.target && e.target.classList.contains('booking-form')) {
+      e.preventDefault();
+
+      const form = e.target;
+      const booking = {
+        id: Date.now(),
+        eventId: form.eventId.value,
+        eventName: form.eventName.value,
+        eventHostName: form.eventHostName.value,
+        customerId: form.customerId.value
+      };
+
+      fetch('/api/bookings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(booking)
+      })
+        .then(res => {
+          if (!res.ok) throw new Error("Booking failed");
+          return res.json();
+        })
+        .then(data => {
+          alert("Booking created!");
+        })
+        .catch(err => console.error("Error creating booking:", err));
+    }
+  });
 });

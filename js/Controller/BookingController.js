@@ -1,22 +1,18 @@
 const Booking = require('../Model/Booking');
 const BookingRepository = require('../Repository/BookingRepository');
 
-class BookingController
-{
-  newBookingTest(req, res)
-  {
-    const {customerId, eventId} = req.body;
-    if(!customerId || !eventId)
-    {
-      return res.status(400).send("Missing event or customer id");
+class BookingController {
+  createBooking(req, res) {
+    const { id, eventHostName, eventId, customerId, eventName } = req.body;
+
+    if (!eventId || !eventName || !eventHostName || !customerId) {
+      return res.status(400).json({ error: "Missing booking data" });
     }
 
-    const id = Date.now();
-    const booking = new Booking(id, eventId, customerId);
+    const booking = new Booking(id, eventHostName, eventId, customerId, eventName);
     BookingRepository.saveBooking(booking);
-
-    res.status(201).send("Booking made successfully");
+    res.status(201).json(booking);
   }
 }
 
-module.exports = new BookingController;
+module.exports = new BookingController();

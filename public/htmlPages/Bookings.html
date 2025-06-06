@@ -15,6 +15,7 @@
                     <a class="toplink" href="Events">Events</a>
                     <a class="active" href="Bookings">Bookings</a>
                     <a class="toplink" href="Contact">Contact</a>
+                    <button class="logout" id="logoutBtn">Logout</button>
                 </nav>
 
             </div>
@@ -34,6 +35,14 @@
                     <button  type="submit" id="createBookingButton" class="create" name="action" value="createBooking">Create</button><br>
                 </form>
             </div>
+
+            <script>
+                document.getElementById("logoutBtn").addEventListener("click", () => 
+                {
+                    window.location.href = "/";
+                });
+            </script>
+
 
            
 

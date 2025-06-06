@@ -9,7 +9,7 @@ const BookingController = require('./js/Controller/BookingController');
 
 const UserRepository = require('./js/Repository/UserRepository');
 const EventRepository = require('./js/Repository/EventRepository');
-
+const BookingRepository = require("./js/Repository/BookingRepository")
 
 
 
@@ -42,16 +42,6 @@ app.get("/users/:id/Home", (req, res)=>
 app.get("/users/:id/Events", (req, res)=>
 {
   res.sendFile(path.join(__dirname, "public", "htmlPages", "Events.html"))
-})
-
-app.get("/users/:id/Bookings", (req, res)=>
-{
-  res.sendFile(path.join(__dirname, "public", "htmlPages", "Bookings.html"))
-})
-
-app.get("/users/:id/Contact", (req, res)=>
-{
-  res.sendFile(path.join(__dirname, "public", "htmlPages", "Contact.html"))
 })
 
 app.get("/users/:id/Bookings", (req, res)=>
@@ -113,6 +103,13 @@ app.post("/submit", (req, res) =>
   }
 
 });
+
+
+// ✅ CORRECT:
+app.post('/api/bookings', BookingController.createBooking);
+
+
+
 
 app.post("/api/events", EventController.create);
 

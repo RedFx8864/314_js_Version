@@ -6,6 +6,7 @@ class Event
     this.name = name;
     this.description = description;
     this.hostId = hostId;
+    this.hostName = hostName;
     this.dates = dates;
   }
 }
